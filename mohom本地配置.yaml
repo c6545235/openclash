@@ -208,7 +208,7 @@ rules:
   - RULE-SET,google_ip,🍀 Google,no-resolve
   - RULE-SET,netflix_ip,🎥 NETFLIX,no-resolve
   - RULE-SET,telegram_ip,📲 Telegram,no-resolve
-  - RULE-SET, gfw_domain，🐟 漏网之鱼
+  - RULE-SET, gfw_domain,🐟 漏网之鱼
   - RULE-SET,geolocation-!cn,🐟 漏网之鱼
   - RULE-SET,direct1,🟢 直连
   - RULE-SET,private_domain,🟢 直连
