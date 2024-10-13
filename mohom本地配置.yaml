@@ -189,12 +189,8 @@ proxy-groups:
   - {name: 🌸️ SS, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(直连|Hy2)).)*$"}
 rules:
 
-  - RULE-SET,private_domain,🟢 直连
+  #- RULE-SET,private_domain,🟢 直连
   - RULE-SET,direct1,🟢 直连
-  - RULE-SET,ACL4SSR,🟢 直连
-  #- RULE-SET,ACL4SSR1,🟢 直连
-  
-  
   - RULE-SET,apple_domain,🍎 Apple
   #- RULE-SET,free,🔗 链式代理
   - RULE-SET,proxylite,🚀 节点选择
@@ -202,9 +198,6 @@ rules:
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
   - RULE-SET,youtube_domain,📹 YouTube
   - RULE-SET,google_domain,🍀 Google
-  
-  - RULE-SET,ACL4SSR3,🟢 直连
-  
   - RULE-SET,onedrive_domain,🐬 OneDrive
   - RULE-SET,microsoft_domain,🪟 Microsoft
   - RULE-SET,tiktok_domain,🎵 TikTok
@@ -212,16 +205,11 @@ rules:
   - RULE-SET,telegram_domain,📲 Telegram
   - RULE-SET,netflix_domain,🎥 NETFLIX
   - RULE-SET,paypal_domain,💶 PayPal
-  #- RULE-SET,geolocation-!cn,🚀 节点选择
-  - RULE-SET,cn_domain,🎯 全球直连
-  - RULE-SET,ACL4SSR4,🟢 直连
-  - RULE-SET,ACL4SSR5,🟢 直连
-  - RULE-SET,ACL4SSR6,🟢 直连
- 
   - RULE-SET,google_ip,🍀 Google,no-resolve
-  - RULE-SET,ACL4SSR2,🟢 直连
   - RULE-SET,netflix_ip,🎥 NETFLIX,no-resolve
   - RULE-SET,telegram_ip,📲 Telegram,no-resolve
+  - RULE-SET, gfw_domain，🐟 漏网之鱼
+  - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,cn_ip,🎯 全球直连
   - RULE-SET,geolocation-!cn,🐟 漏网之鱼
   - MATCH,🐟 漏网之鱼
@@ -251,15 +239,7 @@ rule-providers:
   gfw_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs" }
   geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs" }
   cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
-  ACL4SSR: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list" }
-  #ACL4SSR1: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list" }
-  ACL4SSR2: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list" }
-  ACL4SSR3: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/SteamCN.list" }
-  ACL4SSR4: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list" }
-  ACL4SSR5: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list" }
-  ACL4SSR6: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list" }
-  
-  
+
   
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
   google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs" }
