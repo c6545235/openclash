@@ -208,10 +208,11 @@ rules:
   - RULE-SET,netflix_ip,🎥 NETFLIX,no-resolve
   - RULE-SET, gfw_domain,🚀 节点选择
   - RULE-SET,geolocation-!cn,🚀 节点选择
-  
-
+  - RULE-SET,LocalAreaNetwork,🟢 直连
+  - RULE-SET,Download,🟢 直连
   - RULE-SET,private_domain,🟢 直连
-  
+  - RULE-SET,LocalAreaNetwork,🟢 直连
+  - RULE-SET,Download,🟢 直连
   - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,cn_ip,🎯 全球直连
   - MATCH,🐟 漏网之鱼
@@ -252,7 +253,8 @@ rule-providers:
   gfw_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs" }
   geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs" }
   cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
-
+  LocalAreaNetwork: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list" }
+  Download: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list" }
   
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
   google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs" }
