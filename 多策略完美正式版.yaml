@@ -11,7 +11,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "http://10.10.10.2:3001/CKg2abstVnOeRpm1aB4G/download/%E5%87%8C%E4%BA%91"
+    url: ""
   Airport_02:
     type: http
     interval: 1800
@@ -20,7 +20,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "http://10.10.10.2:3001/CKg2abstVnOeRpm1aB4G/download/Needay"
+    url: ""
   Airport_03:
     type: http
     interval: 1800
@@ -29,7 +29,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "http://10.10.10.2:3001/CKg2abstVnOeRpm1aB4G/download/%E8%87%AA%E5%BB%BA"
+    url: ""
     
     override:
       skip-cert-verify: true
