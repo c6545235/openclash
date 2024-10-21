@@ -206,6 +206,7 @@ proxy-groups:
   
 rules:
 #正在使用
+  - RULE-SET,LocalAreaNetwork,🟢 直连
   - RULE-SET,direct1,🟢 直连
   - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,proxylite,🚀 节点选择
@@ -218,19 +219,18 @@ rules:
   - RULE-SET,microsoft_domain,🪟 Microsoft
   - RULE-SET,tiktok_domain,🎵 TikTok
   - RULE-SET,netflix_domain,🎥 NETFLIX
+  - RULE-SET, gfw_domain,🚀 节点选择
+  - RULE-SET,geolocation-!cn,🚀 节点选择
+  - RULE-SET,private_domain,🎯 全球直连
+  - RULE-SET,cn_domain,🎯 全球直连
+  - RULE-SET,Download,🎯 全球直连
   - RULE-SET,telegram_ip,📲 Telegram,no-resolve
   - RULE-SET,google_ip,🍀 Google,no-resolve
   - RULE-SET,netflix_ip,🎥 NETFLIX,no-resolve
-  - RULE-SET, gfw_domain,🚀 节点选择
-  - RULE-SET,geolocation-!cn,🚀 节点选择
-  - RULE-SET,LocalAreaNetwork,🟢 直连
-  - RULE-SET,Download,🟢 直连
-  - RULE-SET,private_domain,🟢 直连
-  - RULE-SET,LocalAreaNetwork,🟢 直连
-  - RULE-SET,Download,🟢 直连
-  - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,cn_ip,🎯 全球直连
   - MATCH,🐟 漏网之鱼
+
+  
 #备份 不在使用
   #- RULE-SET,free,🔗 链式代理
   #- RULE-SET,onedrive_domain,🐬 OneDrive
