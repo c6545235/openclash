@@ -69,8 +69,9 @@ override:
 
 # 用于下载订阅时指定UA
 global-ua: clash.meta
+
     
-# 全局配置
+ # 全局配置
 port: 7890
 socks-port: 7891
 redir-port: 7892
@@ -222,7 +223,7 @@ proxy-groups:
         ],
     }
   
-  # 分隔,下面是固定分组 
+ # 分隔,下面是固定分组 
   - {name: YouTube, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/YouTube.png, <<: *pr}
   - {name: Google, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Google.png, <<: *pr}
   - {name: ChatGPT, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/AI.png, <<: *pr}
@@ -239,37 +240,161 @@ proxy-groups:
 
   #- {name: 负载均衡SS, type: load-balance, strategy: consistent-hashing, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Load_balancing_2.png, filter: "(?=.*(凌云 香港))"}
   #- {name: 负载均衡hy2, type: load-balance, strategy: consistent-hashing, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Load_balancing_2.png, filter: "(?=.*(Needay 香港))"}
-  
-  - {name: 凌云香港, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 香港))"}
-  - {name: 银河香港, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(银河 香港))"}
 
-  - {name: 凌云日本, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 日本))"}
-  - {name: 银河日本, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(银河 日本))"}
+ #  常用分组  
+  - {name: 凌云香港,
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(凌云 香港))"}
+     
+  - {name: 银河香港, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 香港))"}
 
-  - {name: 凌云美国, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 美国))"}
-  - {name: 银河美国, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(银河 美国))"}
+  - {name: 凌云日本, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(凌云 日本))"}
+     
+  - {name: 银河日本,
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 日本))"}
 
-  - {name: 凌云新加披, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 新))"}
-  - {name: 银河新加披, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(银河 新))"}
+  - {name: 凌云美国, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(凌云 美国))"}
+     
+  - {name: 银河美国, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 美国))"}
 
-  - {name: 凌云台湾, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 台湾))"}
-  - {name: 银河台湾, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(银河 台湾))"}
+  - {name: 凌云新加披, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(凌云 新))"}
+     
+  - {name: 银河新加披, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 新))"}
 
-  - {name: 凌云韩国, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 韩国))"}
-  - {name: 银河韩国, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(银河 韩国))"}
+  - {name: 凌云台湾, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(凌云 台湾))"}
+     
+  - {name: 银河台湾, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 台湾))"}
+     
+
+  - {name: 凌云韩国, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(凌云 韩国))"}
+     
+  - {name: 银河韩国, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 韩国))"}
+     
 
   #- {name: 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "^((?!(🟢 直连)).)*$"}
-  - {name: 全部节点, type: select, include-all: true ,icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Home.png}
-  - {name: NETFLIX节点, type: select, include-all: true, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Netflix.png, filter: "(?=.*(奈飞|Netflix|NETFLIX|流媒体))^((?!(🟢 直连)).)*$"}
+  - {name: 全部节点, 
+     type: select, 
+     include-all: true,
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Home.png}
+     
+  - {name: NETFLIX节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Netflix.png, 
+     filter: "(?=.*(奈飞|Netflix|NETFLIX|流媒体))^((?!(🟢 直连)).)*$"}
+     
 
  # 分隔,下面是地区分组
-  - {name: 自建节点, type: select, include-all: true, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Reddit.png, filter: "(?i)(chen-yang)"}
-  - {name: 香港节点, type: select, include-all: true, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Hong_Kong.png, filter: "(?i)港|hk|hongkong|hong kong"}
-  - {name: 日本节点, type: select, include-all: true, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Japan.png, filter: "(?i)日|jp|japan"}
-  - {name: 美国节点, type: select, include-all: true, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/USA.png, filter: "(?i)美|us|unitedstates|united states"}
-  - {name: 新加坡节点, type: select, include-all: true, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Singapore.png, filter: "(?i)新|sg"}
-  - {name: 台湾节点, type: select, include-all: true, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Taiwan_Province.png, filter: "(?i)台|tw"}
-  - {name: 韩国节点, type: select, include-all: true, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/South_Korea.png, filter: "(?i)韩|kr"}
+  - {name: 自建节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Reddit.png, 
+     filter: "(?i)(chen-yang)"}
+     
+  - {name: 香港节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Hong_Kong.png, 
+     filter: "(?i)港|hk|hongkong|hong kong"}
+     
+  - {name: 日本节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Japan.png, 
+     filter: "(?i)日|jp|japan"}
+     
+  - {name: 美国节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/USA.png, 
+     filter: "(?i)美|us|unitedstates|united states"}
+     
+  - {name: 新加坡节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Singapore.png, 
+     filter: "(?i)新|sg"}
+     
+  - {name: 台湾节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Taiwan_Province.png, 
+     filter: "(?i)台|tw"}
+     
+  - {name: 韩国节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/South_Korea.png, 
+     filter: "(?i)韩|kr"}
 
 
 
