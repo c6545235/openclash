@@ -237,7 +237,7 @@ proxy-groups:
   - {name: 全球直连, type: select, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Global.png, proxies: [🟢 直连, 节点选择]}
   - {name: 漏网之鱼, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Fish.png, <<: *pr}
   - {name: Speedtest, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/SpeedTest.png, <<: *pr}
-
+  - {name: 广告拦截, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/AdblockPlus_2.png, type: select, proxies: [REJECT, DIRECT, 节点选择] }
   #- {name: 负载均衡SS, type: load-balance, strategy: consistent-hashing, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Load_balancing_2.png, filter: "(?=.*(凌云 香港))"}
   #- {name: 负载均衡hy2, type: load-balance, strategy: consistent-hashing, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Load_balancing_2.png, filter: "(?=.*(Needay 香港))"}
 
@@ -400,6 +400,7 @@ proxy-groups:
 
   
 rules:
+  - AND,((RULE-SET,anti-AD),(NOT,((RULE-SET,anti-AD-white)))),广告拦截 # 感谢 Telegram @nextyahooquery 提供的建议
   - RULE-SET,private_domain,🟢 直连 
   - RULE-SET,NetEaseMusic_domain,网易云音乐
   - RULE-SET,apple_domain,Apple
@@ -454,3 +455,15 @@ rule-providers:
   google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs" }
   telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs" }
   netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs" }
+  
+  
+ #广告拦截
+  # anti-AD 广告拦截规则
+  # https://github.com/privacy-protection-tools/anti-AD
+  # 如果误杀率高请自行更换
+  anti-AD: { <<: *qcy, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-clash.yaml?" }
+    
+  # anti-AD 白名单规则
+  anti-AD-white: { <<: *qcy, url: "https://raw.githubusercontent.com/privacy-protection-tools/dead-horse/master/anti-ad-white-for-clash.yaml?" }
+ 
+ 

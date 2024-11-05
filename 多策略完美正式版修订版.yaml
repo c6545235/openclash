@@ -7,17 +7,22 @@ pr:
         节点选择,
         SS香港自动,
         Hy2香港自动,
+        超实惠香港自动,
         SS日本自动,
         Hy2日本自动,
+        超实惠日本自动,
         SS美国自动,
-        Hy2美国自动,
-        SS新加披自动,
+        Hy2美国自动, 
+        超实惠美国自动,     
         SS新加披自动,
         Hy2新加披自动,
+        超实惠新加披自动,
         SS台湾自动,
         Hy2台湾自动,
+        超实惠台湾自动,
         SS韩国自动,
         Hy2韩国自动,
+        超实惠韩国自动,
         自动选择,
         香港节点,
         日本节点,
@@ -31,64 +36,50 @@ pr:
         负载均衡hy2,
       ],
   }
-# 延迟检测 URL
-p: &p
-  type: http
-  # 自动更新订阅时间，单位为秒
-  interval: 3600
-  health-check:
-    enable: true
-    url: https://cp.cloudflare.com
-    # 节点连通性检测时间，单位为秒
-    interval: 300
-    # 节点超时延迟，单位为毫秒
-    timeout: 1000
-    # 节点自动切换差值，单位为毫秒
-    tolerance: 100
 
-# 基础配置
-# --------------------------------------------------
-# 如果你是小白，那么你只需要修改分割线以内的内容
-# 其他部分保持不动即可
-# 如果你需要使用大于两个机场，在下方 `use` 处添加 `订阅三` （名字可以自己取），然后在 `proxy-providers` 照例添加订阅链接即可
-# 反之，如果你只需要使用一个，那么将 `订阅二` 前添加 `#` 进行注释即可
-
-# 订阅名，记得修改成自己的
-# 添删订阅在这里和下方订阅链接依葫芦画瓢就行
-#use: &use
-  # 如果不希望自动切换请将下面两行注释对调
-  # type: select
-  #type: url-test
- # use:
-   # - 订阅一
-   # - 订阅二
-    # - 本地配置
-
-# 订阅链接
-# 对于订阅来说，path 为选填项，但建议启用
-# 本地配置可以只填 path
 
 proxy-providers:
-  订阅一:
-    <<: *p
-    # path: ./proxy_provider/订阅一.yaml
-    url: "http://10.10.10.2:3001/CKg2abstVnOeRpm1aB4G/download/%E5%87%8C%E4%BA%91"
-
-  订阅二:
-    <<: *p
-    # path: ./proxy_provider/订阅二.yaml
-    url: "http://10.10.10.2:3001/CKg2abstVnOeRpm1aB4G/download/Needay"
-
-  订阅三:
-    <<: *p
-    # path: ./proxy_provider/订阅二.yaml
-    url: "http://10.10.10.2:3001/CKg2abstVnOeRpm1aB4G/download/%E8%87%AA%E5%BB%BA"    
+  Airport_01:
+    type: http
+    interval: 1800
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 🟢 直连
+    url: "http://10.10.10.10:3001/CKg2abstVnOeRpm1aB4G/download/%E5%87%8C%E4%BA%91"
+    
+  Airport_02:
+    type: http
+    interval: 1800
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 🟢 直连
+    url: "http://10.10.10.10:3001/CKg2abstVnOeRpm1aB4G/download/Needay"
+    
+  Airport_03:
+    type: http
+    interval: 1800
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 🟢 直连
+    url: "http://10.10.10.10:3001/CKg2abstVnOeRpm1aB4G/download/%E8%87%AA%E5%BB%BA"
     
     
+  Airport_04:
+    type: http
+    interval: 1800
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: "\U0001F7E2 直连"
+    url: "http://10.10.10.10:3001/CKg2abstVnOeRpm1aB4G/download/%E8%B6%85%E5%AE%9E%E6%83%A0"
 
-  # 本地配置:
-    # <<: *p
-    # path: ./proxy_provider/本地配置.yaml
 
 #hy2需要  
 override:
@@ -109,7 +100,7 @@ socks-port: 7891
 redir-port: 7892
 mixed-port: 7893
 tproxy-port: 7894
-ipv6: false
+ipv6: true
 allow-lan: true
 unified-delay: true
 tcp-concurrent: true
@@ -181,7 +172,7 @@ tun:
 dns:
   enable: true
   listen: 0.0.0.0:1053
-  ipv6: false
+  ipv6: true
   respect-rules: true
   # 模式切换 redir-host / fake-ip
   enhanced-mode: fake-ip
@@ -210,6 +201,8 @@ dns:
     "rule-set:geolocation-!cn":
       - "https://dns.cloudflare.com/dns-query"
       - "https://dns.google/dns-query"
+ 
+      
     
 
  
@@ -222,7 +215,7 @@ proxies:
   
 # 策略组
 proxy-groups:
-  - {name: 节点选择, type: select, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Server.png, proxies: [负载均衡SS, 负载均衡hy2, SS香港自动, Hy2香港自动, SS日本自动, Hy2日本自动, SS美国自动, Hy2美国自动, SS新加披自动, Hy2新加披自动, SS台湾自动, Hy2台湾自动, SS韩国自动, Hy2韩国自动, 自动选择, 香港节点, 日本节点, 美国节点, 新加坡, 台湾, 韩国, 全部节点, 自建节点]}
+  - {name: 节点选择, type: select, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Server.png, proxies: [负载均衡SS, 负载均衡hy2, SS香港自动, Hy2香港自动, 超实惠香港自动, SS日本自动, Hy2日本自动, 超实惠日本自动, SS美国自动, Hy2美国自动, 超实惠美国自动, SS新加披自动, Hy2新加披自动, 超实惠新加披自动, SS台湾自动, Hy2台湾自动, 超实惠台湾自动, SS韩国自动, Hy2韩国自动, 超实惠韩国自动, 自动选择, 香港节点, 日本节点, 美国节点, 新加坡, 台湾, 韩国, 全部节点, 自建节点]}
   - {name: YouTube, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/YouTube.png, <<: *pr}
   - {name: Google, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Google.png, <<: *pr}
   - {name: ChatGPT, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/AI.png, <<: *pr}
@@ -231,6 +224,8 @@ proxy-groups:
   - {name: Microsoft, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Microsoft_365.png, <<: *pr}
   - {name: TikTok, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/TikTok.png, <<: *pr}
   - {name: Telegram, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Telegram.png, <<: *pr}
+  
+  - {name: 网易云音乐, type: select, icon: https://mirror.ghproxy.com/https://github.com/blackmatrix7/ios_rule_script/blob/master/icon/qure/color/Netease_Music.png, proxies: [全球直连, 节点选择]}
   - {name: NETFLIX, type: select, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Netflix.png, proxies: [NETFLIX自动节点, NETFLIX手动节点]}
   - {name: Apple, type: select, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Apple_black.png, proxies: [全球直连, 节点选择]}
   - {name: 全球直连, type: select, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Global.png, proxies: [🟢 直连, 节点选择]}
@@ -253,40 +248,54 @@ proxy-groups:
   - {name: 韩国, type: select, include-all: true, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/South_Korea.png, filter: "(?i)韩|kr"}
   - {name: SS香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 香港))"}
   - {name: Hy2香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(Needay 香港))"}
+  - {name: 超实惠香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(超实惠 香港))"}
+
   - {name: SS日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 日本))"}
   - {name: Hy2日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(Needay 日本))"}
+  - {name: 超实惠日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(超实惠 日本))"}
+
   - {name: SS美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 美国))"}
   - {name: Hy2美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(Needay 美国))"}
-  - {name: SS新加披自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 新加披))"}
-  - {name: Hy2新加披自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(Needay 新加披))"}
+  - {name: 超实惠美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(超实惠 美国))"}
+
+  - {name: SS新加披自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 新))"}
+  - {name: Hy2新加披自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(Needay 新))"}
+  - {name: 超实惠新加披自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(超实惠 新))"}
+
   - {name: SS台湾自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 台湾))"}
   - {name: Hy2台湾自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(Needay 台湾))"}
+  - {name: 超实惠台湾自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(超实惠 台湾))"}
+
   - {name: SS韩国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(凌云 韩国))"}
   - {name: Hy2韩国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(Needay 韩国))"}
+  - {name: 超实惠韩国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "(?=.*(超实惠 韩国))"}
 
   - {name: 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "^((?!(🟢 直连)).)*$"}
   - {name: 全部节点, type: select, include-all: true ,icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Home.png}
   
-  
 rules:
   - RULE-SET,private_domain,🟢 直连 
-  - RULE-SET,direct1,🟢 直连 
-  - RULE-SET,proxylite,节点选择 
-  - RULE-SET,AppleProxy,全球直连
-  - RULE-SET,apple_domain,🟢 直连
+  - RULE-SET,NetEaseMusic_domain,网易云音乐
+  - RULE-SET,apple_domain,Apple
   - RULE-SET,ai,ChatGPT
   - RULE-SET,youtube_domain,YouTube
   - RULE-SET,google_domain,Google
-  - RULE-SET,google_ip,Google
+  - RULE-SET,google_ip,Google,no-resolve
   - RULE-SET,netflix_domain,NETFLIX
-  - RULE-SET,netflix_ip,NETFLIX
+  - RULE-SET,netflix_ip,NETFLIX,no-resolve 
   - RULE-SET,telegram_domain,Telegram
-  - RULE-SET,telegram_ip,Telegram
+  - RULE-SET,telegram_ip,Telegram,no-resolve
   - RULE-SET,github_domain,GitHub
   - RULE-SET,microsoft_domain,Microsoft
+  - RULE-SET,direct1,全球直连
+  - RULE-SET,proxylite,节点选择 
   - RULE-SET,geolocation-!cn,节点选择
-  - RULE-SET,cn_domain,🟢 直连
-  - RULE-SET,cn_ip,🟢 直连
+  
+  - RULE-SET,cn_domain,全球直连
+  
+   
+  
+  - RULE-SET,cn_ip,全球直连
   - MATCH,漏网之鱼
   
 rule-anchor:
@@ -300,7 +309,7 @@ rule-providers:
   direct1: { <<: *class, url: "https://raw.githubusercontent.com/c6545235/openclash/refs/heads/main/Direct.list" }
   proxylite: { <<: *qcy, url: "https://raw.githubusercontent.com/c6545235/openclash/refs/heads/main/ProxyLite.list" }
   ai: { <<: *qcy, url: "https://raw.githubusercontent.com/c6545235/openclash/refs/heads/main/AI.list" }
-  AppleProxy: { <<: *qcy, url: "https://raw.githubusercontent.com/Repcz/Tool/refs/heads/X/Surge/Rules/AppleProxy.list" }
+  
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs" }
   google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs" }
   github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs" }
@@ -317,6 +326,7 @@ rule-providers:
   cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
   LocalAreaNetwork: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list" }
   Download: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list" }
+  NetEaseMusic_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/NetEaseMusic/NetEaseMusic.list" }
   
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
   google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs" }
