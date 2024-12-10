@@ -1,0 +1,483 @@
+# 锚点
+pr:
+  &pr {
+    type: select,
+    proxies:
+      [
+        节点选择,
+        红杏香港, 
+        银河香港, 		   
+        红杏日本, 
+        银河日本, 		   
+        红杏美国, 
+        银河美国, 		   
+        红杏新加披, 
+        银河新加披, 		   
+        红杏台湾, 
+        银河台湾, 		   
+        红杏韩国, 
+        银河韩国,
+        #自动选择,
+        香港节点,
+        日本节点,
+        美国节点,
+        新加坡节点,
+        台湾节点,
+        韩国节点,
+        全部节点,
+        自建节点,
+        #负载均衡SS,
+        #负载均衡hy2,
+      ],
+  }
+url-test: &url-test {type: url-test, url: https://latency-test.skk.moe/endpoint, interval: 300, include-all: true}
+fallback: &fallback {type: fallback, url: https://latency-test.skk.moe/endpoint, interval: 300, include-all: true}
+# 这里是订阅更新和延迟测试相关的
+p: &p {type: http, interval: 86400, health-check: {enable: true, url: "https://latency-test.skk.moe/endpoint", interval: 600}}
+proxy-providers:
+  Airport_01:
+    <<: *p
+    proxy: 🟢 直连
+    url: "http://10.10.10.10:3001/CKg2abstVnOeRpm1aB4G/download/collection/%E8%AE%A2%E9%98%85"
+    
+  Airport_02:
+    <<: *p    
+    proxy: 🟢 直连
+    url: ""
+    
+  Airport_03:
+    <<: *p
+    proxy: 🟢 直连
+    url: ""
+    
+    
+  Airport_04:
+    <<: *p
+    proxy: 🟢 直连
+    url: ""
+
+
+#hy2需要  
+override:
+  skip-cert-verify: true
+  udp: true
+  down: "1000 Mbps"
+  up: "100 Mbps"
+  ports: 20000-50000
+      
+
+
+# 用于下载订阅时指定UA
+global-ua: clash.meta
+
+    
+ # 全局配置
+port: 8080
+socks-port: 1080
+redir-port: 7891
+mixed-port: 7890
+tproxy-port: 7892
+ipv6: true
+allow-lan: true
+unified-delay: true
+tcp-concurrent: true
+geodata-mode: false
+# GEO 文件加载模式（standard：标准加载器/memconservative：专为内存受限 (小内存) 设备优化的加载器 (默认值)）
+geodata-loader: standard
+geo-auto-update: true
+geo-update-interval: 24
+geox-url:
+  geosite: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+  mmdb: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.metadb"
+  geoip: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat"
+  asn: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
+  
+# 控制面板
+external-controller: 0.0.0.0:9090
+secret: 954363
+external-ui: ui
+external-ui-url: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
+# 下载面板地址可更换：https://mirror.ghproxy.com/https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip
+
+# 匹配进程 always/strict/off
+find-process-mode: strict
+global-client-fingerprint: chrome
+keep-alive-idle: 600
+keep-alive-interval: 15
+
+# 策略组选择和fakeip缓存
+profile:
+  store-selected: true
+  store-fake-ip: true
+  
+# 流量嗅探
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - +.v2ex.com
+  skip-domain:
+    - "Mijia Cloud"
+    - "dlg.io.mi.com"
+    - "+.push.apple.com"
+    - "+.apple.com"
+    
+# 代理模式
+tun:
+  enable: false
+  stack: mixed
+  mtu: 9000
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  device: mihomo
+  gso: true
+  gso-max-size: 65536
+  endpoint-independent-nat: false
+  
+# DNS模块
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: true
+  respect-rules: false
+  # 模式切换 redir-host / fake-ip
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  # 模式切换 whitelist/blacklist 
+  # 黑名单模式表示如果匹配成功则不返回 Fake-IP, 白名单模式时只有匹配成功才返回 Fake-IP
+  fake-ip-filter-mode: blacklist
+  prefer-h3: false
+  use-system-hosts: false
+  use-hosts: true
+  fake-ip-filter:
+    - +.lan
+    - +.local
+    - geosite:private
+    - geosite:cn
+    - +.services.googleapis.cn
+    - +.xn--ngstr-lra8j.com
+    - rule-set:private_domain
+    - rule-set:cn_domain
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  nameserver:
+    - udp://127.0.0.1:6553
+  fallback:
+    - udp://127.0.0.1:6554
+  nameserver-policy:
+    geosite:cn,private:
+      - udp://127.0.0.1:6553
+    geosite:geolocation-!cn:
+      - udp://127.0.0.1:6554
+    rule-set:private_domain,cn_domain,NetEaseMusic_domain,direct1:
+      - udp://127.0.0.1:6553
+    rule-set:geolocation-!cn,ai,youtube_domain,google_domain,netflix_domain,telegram_domain,github_domain,microsoft_domain,proxylite:
+      - udp://127.0.0.1:6554
+ 
+      
+    
+
+ 
+   
+proxies:
+- name: "🟢 直连"
+  type: direct
+  udp: true
+
+  
+# 策略组
+proxy-groups:
+  - {name: 节点选择, 
+     type: select, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Server.png, 
+     proxies: 
+       [
+         #负载均衡SS, 
+        # 负载均衡hy2, 
+          红杏香港, 
+          银河香港, 		   
+          红杏日本, 
+          银河日本, 		   
+          红杏美国, 
+          银河美国, 		   
+          红杏新加披, 
+          银河新加披, 		   
+          红杏台湾, 
+          银河台湾, 		   
+          红杏韩国, 
+          银河韩国, 		   
+          #自动选择, 
+          香港节点, 
+          日本节点, 
+          美国节点, 
+          新加坡节点, 
+          台湾节点, 
+          韩国节点, 
+          全部节点, 
+          自建节点,
+        ],
+    }
+  
+ # 分隔,下面是固定分组 
+  - {name: YouTube, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/YouTube.png, <<: *pr}
+  - {name: Google, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Google.png, <<: *pr}
+  - {name: ChatGPT, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/AI.png, <<: *pr}
+  - {name: GitHub, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/GitHub.png, <<: *pr}
+  - {name: Microsoft, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Microsoft_365.png, <<: *pr}
+  - {name: TikTok, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/TikTok.png, <<: *pr}
+  - {name: Telegram, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Telegram.png, <<: *pr}
+  - {name: 网易云音乐, type: select, icon: https://mirror.ghproxy.com/https://github.com/blackmatrix7/ios_rule_script/blob/master/icon/qure/color/Netease_Music.png, proxies: [全球直连, 节点选择]}
+  - {name: NETFLIX, type: select, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Netflix.png, proxies: [香港节点, 日本节点, 美国节点, 新加坡节点, 台湾节点, 韩国节点]}
+  - {name: Apple, type: select, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Apple_black.png, proxies: [全球直连, 节点选择]}
+  - {name: 全球直连, type: select, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Global.png, proxies: [🟢 直连, 节点选择]}
+  - {name: 漏网之鱼, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Fish.png, <<: *pr}
+  - {name: Speedtest, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/SpeedTest.png, <<: *pr}
+  - {name: 广告拦截, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/AdblockPlus_2.png, type: select, proxies: [REJECT, DIRECT, 节点选择] }
+  #- {name: 负载均衡SS, type: load-balance, strategy: consistent-hashing, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Load_balancing_2.png, filter: "(?=.*(红杏 香港))"}
+  #- {name: 负载均衡hy2, type: load-balance, strategy: consistent-hashing, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Load_balancing_2.png, filter: "(?=.*(Needay 香港))"}
+
+ #  常用分组  
+  - {name: 红杏香港,
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(红杏 香港))"}
+     
+  - {name: 银河香港, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 香港))"}
+
+  - {name: 红杏日本, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(红杏 日本))"}
+     
+  - {name: 银河日本,
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 日本))"}
+
+  - {name: 红杏美国, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(红杏 美国))"}
+     
+  - {name: 银河美国, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 美国))"}
+
+  - {name: 红杏新加披, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(红杏 新))"}
+     
+  - {name: 银河新加披, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 新))"}
+
+  - {name: 红杏台湾, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(红杏 台湾))"}
+     
+  - {name: 银河台湾, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 台湾))"}
+     
+
+  - {name: 红杏韩国, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(红杏 韩国))"}
+     
+  - {name: 银河韩国, 
+     type: url-test, 
+     include-all: true, 
+     tolerance: 20, 
+     interval: 300, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     filter: "(?=.*(银河 韩国))"}
+     
+
+  #- {name: 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, filter: "^((?!(🟢 直连)).)*$"}
+  - {name: 全部节点, 
+     type: select, 
+     include-all: true,
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Home.png}
+     
+  - {name: NETFLIX节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Netflix.png, 
+     filter: "(?=.*(奈飞|Netflix|NETFLIX|流媒体))^((?!(🟢 直连)).)*$"}
+     
+
+ # 分隔,下面是地区分组
+  - {name: 自建节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Reddit.png, 
+     filter: "(?i)(chen-yang)"}
+     
+  - {name: 香港节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Hong_Kong.png, 
+     filter: "(?i)港|hk|hongkong|hong kong"}
+     
+  - {name: 日本节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Japan.png, 
+     filter: "(?i)日|jp|japan"}
+     
+  - {name: 美国节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/USA.png, 
+     filter: "(?i)美|us|unitedstates|united states"}
+     
+  - {name: 新加坡节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Singapore.png, 
+     filter: "(?i)新|sg"}
+     
+  - {name: 台湾节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Taiwan_Province.png, 
+     filter: "(?i)台|tw"}
+     
+  - {name: 韩国节点, 
+     type: select, 
+     include-all: true, 
+     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/South_Korea.png, 
+     filter: "(?i)韩|kr"}
+
+
+
+  
+rules:
+  - AND,((RULE-SET,anti-AD),(NOT,((RULE-SET,anti-AD-white)))),广告拦截 # 感谢 Telegram @nextyahooquery 提供的建议
+  - RULE-SET,private_domain,🟢 直连 
+  - RULE-SET,NetEaseMusic_domain,网易云音乐
+  - RULE-SET,apple_domain,Apple
+  - RULE-SET,ai,ChatGPT
+  - RULE-SET,youtube_domain,YouTube
+  - RULE-SET,google_domain,Google
+  - RULE-SET,google_ip,Google,no-resolve
+  - RULE-SET,netflix_domain,NETFLIX
+  - RULE-SET,netflix_ip,NETFLIX,no-resolve 
+  - RULE-SET,telegram_domain,Telegram
+  - RULE-SET,telegram_ip,Telegram,no-resolve
+  - RULE-SET,github_domain,GitHub
+  - RULE-SET,microsoft_domain,Microsoft
+  - RULE-SET,direct1,全球直连
+  - RULE-SET,proxylite,节点选择 
+  - RULE-SET,geolocation-!cn,节点选择
+  - RULE-SET,cn_domain,全球直连
+  - RULE-SET,cn_ip,全球直连
+  - MATCH,漏网之鱼
+  
+rule-anchor:
+  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
+  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
+  qcy: &qcy {type: http, interval: 86400, behavior: domain, format: text}
+  class: &class {type: http, interval: 86400, behavior: classical, format: text}
+
+rule-providers: 
+  private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
+  direct1: { <<: *class, url: "https://raw.githubusercontent.com/c6545235/openclash/refs/heads/main/Direct.list" }
+  proxylite: { <<: *qcy, url: "https://raw.githubusercontent.com/c6545235/openclash/refs/heads/main/ProxyLite.list" }
+  ai: { <<: *qcy, url: "https://raw.githubusercontent.com/c6545235/openclash/refs/heads/main/AI.list" }
+  
+  youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs" }
+  google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs" }
+  github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs" }
+  telegram_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs" }
+  netflix_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs" }
+  paypal_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs" }
+  #onedrive_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs" }
+  microsoft_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs" }
+  apple_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs" }
+  speedtest_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs" }
+  tiktok_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs" }
+  gfw_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs" }
+  geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs" }
+  cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
+  LocalAreaNetwork: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list" }
+  Download: { <<: *qcy, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list" }
+  NetEaseMusic_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/NetEaseMusic/NetEaseMusic.list" }
+  
+  cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
+  google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs" }
+  telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs" }
+  netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs" }
+  
+  
+ #广告拦截
+  # anti-AD 广告拦截规则
+  # https://github.com/privacy-protection-tools/anti-AD
+  # 如果误杀率高请自行更换
+  anti-AD: { <<: *qcy, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-clash.yaml?" }
+    
+  # anti-AD 白名单规则
+  anti-AD-white: { <<: *qcy, url: "https://raw.githubusercontent.com/privacy-protection-tools/dead-horse/master/anti-ad-white-for-clash.yaml?" }
+ 
+log-level: info
+mode: rule
+external-ui-name: metacubexd
+authentication:
+  - mihomo:954363
