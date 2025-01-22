@@ -280,9 +280,9 @@ proxy-groups:
      #type: url-test, 
      #include-all: true, 
      #tolerance: 20, 
-     interval: 300, 
-     icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
-     filter: "(?=.*(银河 日本))"}
+     #interval: 300, 
+     #icon: https://mirror.ghproxy.com/https://github.com/Vbaethon/HOMOMIX/blob/main/Icon/Color/Large/Transfer.png, 
+     #filter: "(?=.*(银河 日本))"}
 
   - {name: 红杏美国, 
      type: url-test, 
