@@ -10,7 +10,7 @@ DOMAIN-SUFFIX,kicfoakjvf.com
 DOMAIN-SUFFIX,openwrt.ai
 #DOMAIN-SUFFIX,amung.us
 #DOMAIN-SUFFIX,hackrules.com
-
+DOMAIN-SUFFIX,riotgames.com
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
 
